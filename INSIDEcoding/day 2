@@ -1,0 +1,62 @@
+Day 02
+. Ansible - Install Enable& Ngnix
+- name: Install And Start Nginx on Pathnex
+  hosts : all
+  become : Yes
+
+  task:
+  -name: Install nginx
+    yum:
+    name: nginx
+    state present
+
+  -name: Enable nginx
+         Service
+           name: nginx
+           state: started
+           enables -Yes
+
+
+
+  .Terraform -EC2 With Tags  (r5.2clarge)
+   provide "aws" {
+      resion = "us-east-1"
+      }
+
+   resource "aws_instance" "Pathnex EC2" {
+     ami          = "ami-0abcd1234abcd1234"
+    instance_type = "r5.2xlarge"
+
+    tags = {
+      Name         = "Pathnex-Server"
+      Environment  = "Training"
+      owner        = "Pathnex Student"
+     }
+   }
+
+
+# Kubernetes - Deployment With 2 Replicas
+apiversion: aps/v1
+Kind: Deployment
+metadata:
+   name: pathnex_Deployment
+ spec:    
+   replicas: 2
+   selector:
+      matchlables:
+         app: Pathnex-app
+   template:
+     metadata:
+       lables:
+        app: Pathnex-app
+      spec:
+        Containers:
+           -name: app
+            image: nginx
+            port: 
+              -Containerport: 80
+
+
+    . Shell Script - Disk Usage           
+    #!/bin/bash
+    df-h 
