@@ -1,1 +1,89 @@
-hello
+# Day 06 - DEBUG DAY
+
+Fix-these broken files:
+
+## Ansible (broken)
+
+- name Install nginx
+host all
+become yes
+tasks:
+ -name: Instal nginx
+Yum:
+  name nginx
+  state present
+
+
+## Terraform (broken)
+
+resource "aws_Instance""BrokenEc2" {
+  ami = "ami-0xyc"
+  Instance_Type = t2micro
+tags {
+ name = "Broken"
+}
+}
+
+# Kubernets (Broken)
+
+apiVersion v1
+Kind pod
+metadata:
+  name pathnex
+spec
+ containers:
+     name app
+     image nginx
+
+
+
+# Debugging pipelines
+## . jenkins pipelines - Debugging
+you will learn how to **fix broken stages and handles errors**
+
+pipeline {
+  agent any
+stages {
+   stages('chechout') {
+      steps {
+          git branch: 'main', url: 'https://github.com/pathnex/sample-java-app.git'
+       }
+    }
+   stages('Build') {
+       steps {
+          sh '''
+          mvn clean compile || { echo "compile failed"; exit 1;}
+          '''
+         }
+      }
+    stage('Test') {
+       steps {
+          sh '''
+          mvn Test ||  { echo "test failed"; exit 1; }
+          '''
+        }
+      }
+    }
+  }
+
+## Gitlab CI - Debugging
+you will learn how to ** handle job failures and exit code**
+
+stages:
+  -Build
+  - Test
+
+Build:
+  stage: build
+  image: maven:3.8.1-jdk-17
+  script:
+    -git clone https://github.com/pathnex/sample-java-app.git
+    -cd-sample-java-app
+    -mvn clean compile { echo "compile failed";exit 1; }
+
+test:
+  stage: test
+  image: maven:3.8.1-jdk-17
+  script:
+    -cd-sample-java-app
+    -mvn test || { echo"compile failed";exit 1; }
